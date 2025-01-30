@@ -17,16 +17,16 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '12.18.2'
+          node-version: '18.x' # Updated Node.js version
       - run: sudo apt update
       - run: sudo apt install -y libegl1 libopengl0 libxcb-cursor-dev
       - run: sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
       - run: sudo npm install -g gitbook-cli
       - run: gitbook install
       - run: mkdir output
-      - run: gitbook pdf . ./output/typescript-book-${SHA}.pdf
-      - run: gitbook epub . ./output/typescript-book-${SHA}.epub
-      - run: gitbook mobi . ./output/typescript-book-${SHA}.mobi
+      - run: gitbook pdf . ./output/typescript-book-${{ env.SHA }}.pdf
+      - run: gitbook epub . ./output/typescript-book-${{ env.SHA }}.epub
+      - run: gitbook mobi . ./output/typescript-book-${{ env.SHA }}.mobi
       - name: upload pdf artifact
         uses: actions/upload-artifact@v4
         with:
